@@ -36,5 +36,13 @@ export function getDefaultBrowserBundleId(): string | undefined {
 }
 
 export function openUrlWithBundleId(url: string, bundleId: string): void {
-  execSync(`/usr/bin/open -b "${bundleId}" "${url}"`);
+  if (process.platform === "darwin") {
+    execSync(`/usr/bin/open -b "${bundleId}" "${url}"`);
+  } else if (process.platform === "win32") {
+    // Windows does not support macOS bundle identifiers; open with the default handler.
+    execSync(`start "" "${url}"`, { shell: "cmd.exe" });
+  } else {
+    // Fallback for other platforms: open with the default handler if available.
+    execSync(`open "${url}"`);
+  }
 }
