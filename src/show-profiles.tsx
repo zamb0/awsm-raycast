@@ -117,12 +117,13 @@ export default function Command() {
   };
 
   const setProfileAndOpenConsole = async (profile: Profile) => {
-    const results = await Promise.allSettled([setProfile(profile), openConsole(profile)]);
-    const didSetProfile = results[0].status === "fulfilled" && results[0].value;
+    const didSetProfile = await setProfile(profile);
 
     if (!didSetProfile) {
       return;
     }
+
+    await openConsole(profile);
   };
 
   // Group profiles by sso_session
