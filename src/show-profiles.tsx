@@ -103,7 +103,7 @@ export default function Command() {
 
       if (isFirefoxDefault) {
         const containerUrl = `ext+container:name=${encodeURIComponent(profile.name)}&url=${encodeURIComponent(result)}`;
-        const bundleId = defaultBrowser || "org.mozilla.firefox";
+        const bundleId = defaultBrowser;
         openUrlWithBundleId(containerUrl, bundleId);
       } else {
         open(result);
